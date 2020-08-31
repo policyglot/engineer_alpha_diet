@@ -2,28 +2,70 @@
 This program calculates the required macros of foods to be eaten for the 4 phases of the Engineering the Alpha program
 '''
 
-Class ():
-training non_training
+# MACRO-NUTRIENT CONSTANTS
+cal_per_g = {'carb': 4,
+             'protein': 4,
+             'fat': 9}
 
-week_no
+class alpha_workout():
+    """
+    Provides an interface for understanding the overall architecture of the project
+    This conducts backend calculations which then connect with the UI classes of the calculator
+    """
+    def __init__(self, stage, week, bodywt, bodyfat):
+        self.stage = stage
+        self.week = week
+        self.bodywt = bodywt
+        self.bodyfat = bodyfat
 
-#Carb Intake on Workout Days
-{1: 0
-2: 30
-3: 75
-4: 100}
+    def calculate_fatfree(self):
+        return self.bodywt * (1 - self.bodyfat)
 
+    def maintenance_calories(self):
+        """
+        Checks the bodyfat against predecided ranges and accordingly
+        returns a multiplicative factor
+        Then multiplies the
+        :return: calories- int- the maintenance calories rounded to
+        the nearest integer
+        """
+        pass
 
-Maintenance_Caloric_
+    def deficit(self, day):
+        """
+        Returns the number of calories by which the total calories in  day
+        must be below the maintenance value.
 
-Intake
+        :param day: str- workout day ('wkt') or non-workout ('nonwkt')
+        :return: the amount of deficit required from resting metabolic rate
+        """
+        deficit = {'wkt': 300, 'non_wkt': 500}
+        pass
 
-#Subtract
-wkt = 300
-non_wkt = 500
+    def carbohydrate_intake(self, prime=False):
+        """
+        :param prime- Boolean- checks for whether the trainee is in the
+        :return:
+        """
+        carbs = {1: 0,
+                 2: 30,
+                 3: 75,
+                 4: 100}
+        if prime:
+            return carbs[self.week]
+        else:
+            pass
 
-protein_lbm:
-wkt = 0.8
-non_wkt = 0.7
+    def protein_intake(self, day):
+        """
+        Calculates the required protein intake in a day, depending on
+        whether it is
+        :param day: str- workout day ('wkt') or non-workout ('nonwkt')
+        :return: int- rounding to the nearest gram the quantity of protein
+        required
+        """
+        protein_lbm = {'wkt': 0.8, 'non_wkt': 0.7}
+        return
 
-cal_per_g = 4
+    def fat_intake(self, day):
+        pass
