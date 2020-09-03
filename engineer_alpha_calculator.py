@@ -39,22 +39,30 @@ class alpha_workout():
         :param day: str- workout day ('wkt') or non-workout ('nonwkt')
         :return: the amount of deficit required from resting metabolic rate
         """
-        deficit = {'wkt': 300, 'non_wkt': 500}
+        deficit = {'prime':{'wkt': 300, 'non_wkt': 500},
+                   'adapt': {'wkt': 200, 'non_wkt': 600},
+                   'surge': {'wkt': -400, 'non_wkt': 200}
+                   }
         pass
 
-    def carbohydrate_intake(self, prime=False):
+    def carbohydrate_intake(self, prime=False, day):
         """
         :param prime- Boolean- checks for whether the trainee is in the
         :return:
         """
-        carbs = {1: 0,
+        carbs_fixed = {1: 0,
                  2: 30,
                  3: 75,
                  4: 100}
         if prime:
-            return carbs[self.week]
+            if day == 'nonwkt':
+                return 0
+            return carbs_fixed[self.week]
         else:
-            pass
+            carb_lbm = {'adapt': {'wkt': 0.75, 'nonwkt': 0.3},
+                        'surge': {'wkt': 1, 'non_wkt': 0.5}
+                        }
+            return carb_lbm[self.stage][day]
 
     def protein_intake(self, day):
         """
@@ -64,8 +72,11 @@ class alpha_workout():
         :return: int- rounding to the nearest gram the quantity of protein
         required
         """
-        protein_lbm = {'wkt': 0.8, 'non_wkt': 0.7}
-        return
+        protein_lbm = {'adapt': {'wkt': 1, 'non_wkt': 0.8},
+                       'prime': {'wkt': 0.8, 'non_wkt': 0.7},
+                       'surge': {'wkt': 1.5, 'non_wkt': 1.25}
+                   }
+        return protein_lbm[self.stage][day]
 
     def fat_intake(self, day):
         pass
