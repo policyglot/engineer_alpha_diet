@@ -60,7 +60,8 @@ class alpha_workout():
             return carbs_fixed[self.week]
         else:
             carb_lbm = {'adapt': {'wkt': 0.75, 'nonwkt': 0.3},
-                        'surge': {'wkt': 1, 'non_wkt': 0.5}
+                        'surge': {'wkt': 1, 'non_wkt': 0.5},
+                        'complete': {'wkt': 1, 'nonwkt': 0.25}
                         }
             return carb_lbm[self.stage][day]
 
@@ -74,7 +75,8 @@ class alpha_workout():
         """
         protein_lbm = {'adapt': {'wkt': 1, 'non_wkt': 0.8},
                        'prime': {'wkt': 0.8, 'non_wkt': 0.7},
-                       'surge': {'wkt': 1.5, 'non_wkt': 1.25}
+                       'surge': {'wkt': 1.5, 'non_wkt': 1.25},
+                       'complete': {'wkt':1.5, 'nonwkt': 1}
                    }
         return protein_lbm[self.stage][day]
 
