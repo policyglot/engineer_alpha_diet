@@ -50,14 +50,12 @@ class alpha_workout():
         :param prime- Boolean- checks for whether the trainee is in the
         :return:
         """
-        carbs_fixed = {1: 0,
-                 2: 30,
-                 3: 75,
-                 4: 100}
+        carbs_fixed = {1: {'wkt': 0, 'nonwkt': 0},
+                 2: {'wkt': 0, 'nonwkt': 30},
+                 3: {'wkt': 0, 'nonwkt': 50},
+                 4: {'wkt': 0, 'nonwkt': 75}}
         if prime:
-            if day == 'nonwkt':
-                return 0
-            return carbs_fixed[self.week]
+            return carbs_fixed[self.week][day]
         else:
             carb_lbm = {'adapt': {'wkt': 0.75, 'nonwkt': 0.3},
                         'surge': {'wkt': 1, 'non_wkt': 0.5},
