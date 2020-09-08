@@ -21,6 +21,23 @@ class alpha_workout():
     def calculate_fatfree(self):
         return self.bodywt * (1 - self.bodyfat)
 
+    def calculate_maintain(self):
+        """Use body fat to decide constant with which to multiply fatfree mass
+        Returns constants based on predecided intervals
+        Technically these numbers are percentages, but
+        """
+
+        if 6 < self.bodyfat <= 12:
+            return 17
+        if 12 < self.bodyfat <= 15:
+            return 16
+        if 15 < self.bodyfat <= 19:
+            return 15
+        if 19 < self.bodyfat <= 22:
+            return 14
+        if self.bodyfat > 22:
+            return 13
+
     def maintenance_calories(self):
         """
         Checks the bodyfat against predecided ranges and accordingly
@@ -29,7 +46,7 @@ class alpha_workout():
         :return: calories- int- the maintenance calories rounded to
         the nearest integer
         """
-        pass
+        return self.calculate_fatfree() * self.calculate_maintain()
 
     def deficit(self, day):
         """
@@ -43,7 +60,7 @@ class alpha_workout():
                    'adapt': {'wkt': 200, 'non_wkt': 600},
                    'surge': {'wkt': -400, 'non_wkt': 200}
                    }
-        pass
+        
 
     def carbohydrate_intake(self, prime=False, day):
         """
