@@ -56,13 +56,16 @@ class alpha_workout():
         :param day: str- workout day ('wkt') or non-workout ('nonwkt')
         :return: the amount of deficit required from resting metabolic rate
         """
-        deficit = {'prime':{'wkt': 300, 'non_wkt': 500},
+        deficit_dict = {'prime':{'wkt': 300, 'non_wkt': 500},
                    'adapt': {'wkt': 200, 'non_wkt': 600},
                    'surge': {'wkt': -400, 'non_wkt': 200}
                    }
-        
+        return deficit_dict[self.stage][day]
 
-    def carbohydrate_intake(self, prime=False, day):
+    def final_calories(self, day):
+        return self.maintenance_calories() - self.deficit(day)
+
+    def carbohydrate_cals(self, prime=False, day):
         """
         :param prime- Boolean- checks for whether the trainee is in the
         :return:
@@ -78,9 +81,10 @@ class alpha_workout():
                         'surge': {'wkt': 1, 'non_wkt': 0.5},
                         'complete': {'wkt': 1, 'nonwkt': 0.25}
                         }
-            return carb_lbm[self.stage][day]
+            carb_cal = carb_lbm[self.stage][day] * self.calculate_fatfree()
+            return carb_cal/cal_per_g['carb']
 
-    def protein_intake(self, day):
+    def protein_cals(self, day):
         """
         Calculates the required protein intake in a day, depending on
         whether it is
@@ -93,7 +97,17 @@ class alpha_workout():
                        'surge': {'wkt': 1.5, 'non_wkt': 1.25},
                        'complete': {'wkt':1.5, 'nonwkt': 1}
                    }
-        return protein_lbm[self.stage][day]
+        protein_cal =  protein_lbm[self.stage][day] * self.calculate_fatfree()\
+        return protein_cal
+
+    def carb_intake(self, day):
+        return self.carb_cals(day) - cal_per_g['carb']
+
+    def protein_intake(self, day):
+        return self.protein_cals(day) - cal_per_g['protein']
+
+    def fat_cals(self, day):
+        return self.final_calories() - self.carb_cals(day) + self.protein_cals(day)
 
     def fat_intake(self, day):
-        pass
+        return self.fat_cals(day) / cal_per_g['fat']
